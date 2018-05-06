@@ -9,6 +9,20 @@ def isover(board):
     return True
 
 
-def test_function():
+def availablemove(board):
+    moves = []
+    for i in board:
+        for j in i:
+            if j not in moves:
+                moves.append(j)
+
+
+def test_isover():
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) is True
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "blue", "red"]]) is False
+
+
+def test_availablemoves():
+    assert availablemove([["red", "blue", "green"], ["yellow", "red", "red"], ["red", "red", "red"]]) == ["red", "blue",
+                                                                                                          "green",
+                                                                                                          "yellow"]
