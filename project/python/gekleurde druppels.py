@@ -44,7 +44,6 @@ def new_game(size=5):
 
 
 def do_move(board, zet, plaats):
-
     moves = []
     score = parameters.getvalue("score")
     score += 1
