@@ -23,7 +23,7 @@ def availablemove(board):
 def test_isover():
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) is True
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "blue", "red"]]) is False
-    assert [] is True
+    assert isover([]) is True
 
 
 def test_availablemoves():
