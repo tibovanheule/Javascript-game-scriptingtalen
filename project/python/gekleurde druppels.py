@@ -12,7 +12,7 @@ parameters = cgi.FieldStorage()
 
 
 def isover(board):
-    if board is []:
+    if not board:
         return True
     for i in board:
         for j in i:
