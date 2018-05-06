@@ -1,4 +1,9 @@
-import gekleurde_druppels
+def isover(board):
+    for i in board:
+        for j in i:
+            if j != board[0][0]:
+                return False
+    return True
 
 
 def is_over_test():
