@@ -2,6 +2,6 @@ language: python
 python:
   - "3.5"
 before_install:
-  - cd project
+  - cd project/python
 script:
   - pytest
