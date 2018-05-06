@@ -15,6 +15,7 @@ def availablemove(board):
         for j in i:
             if j not in moves:
                 moves.append(j)
+    return moves
 
 
 def test_isover():
