@@ -21,9 +21,14 @@ def availablemove(board):
 def test_isover():
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) is True
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "blue", "red"]]) is False
+    assert [] is True
 
 
 def test_availablemoves():
     assert availablemove([["red", "blue", "green"], ["yellow", "red", "red"], ["red", "red", "red"]]) == ["red", "blue",
                                                                                                           "green",
                                                                                                           "yellow"]
+    assert availablemove([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) == ["red"]
+    assert availablemove([["blue", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) == ["blue","red"]
+    assert availablemove([]) == []
+
