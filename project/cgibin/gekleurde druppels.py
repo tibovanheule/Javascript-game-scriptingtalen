@@ -2,8 +2,8 @@
 
 import cgi
 import cgitb
-import random
 import json
+import random
 
 cgitb.enable()
 
@@ -33,7 +33,7 @@ def availablemove(board):
 def new_game(size=5):
     board = []
     moves = []
-    colors = ["red", "green", "blue", "yellow"]
+    colors = ["red", "green", "blue", "yellow","purple"]
     for i in range(0, size):
         row = []
         for j in range(0, size):
@@ -44,17 +44,6 @@ def new_game(size=5):
         board.append(row)
 
     return json.dumps({"message": '', "score": 0, "moves": [moves], "board": [board]}, indent=4)
-
-
-def do_move(board, zet, plaats):
-    moves = []
-    score = parameters.getvalue("score")
-    score += 1
-    message = ""
-    if isover(board):
-        message = f"Congratulations, you completed te game in {score}!"
-
-    return json.dumps({"message": message, "score": 0, "moves": [moves], "board": [board]}, indent=4)
 
 
 print(new_game())

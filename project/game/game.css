@@ -1,0 +1,30 @@
+.dot {
+    height: 5vw;
+    width: 5vw;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#board{
+    text-align: center;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue
+}
+
+.yellow {
+    background-color: yellow
+}
+
+.purple {
+    background-color: purple
+}
