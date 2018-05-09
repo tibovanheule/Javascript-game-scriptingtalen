@@ -22,8 +22,11 @@
     <div class="logo">
         <img src="../resources/images/logo.png" alt="logo"/>
     </div>
-    <h1>TIBO VANHEULE</h1>
+    <h1>GEKLEURDE DRUPPELS</h1>
     <button id="newgame" >New Game</button>
+    <select id="moves">
+    </select>
+    <p id="score"></p>
     <div id="board">
 
     </div>
