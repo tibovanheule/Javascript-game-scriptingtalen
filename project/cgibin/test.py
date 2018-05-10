@@ -1,6 +1,9 @@
 import pytest
 
 
+# functions used in other documents
+
+
 def isover(board):
     if not board:
         return True
@@ -20,17 +23,57 @@ def availablemove(board):
     return moves
 
 
-def test_isover():
+def check_move(board, zet, plaats, old):
+    x = int(plaats[0])
+    y = int(plaats[1])
+    board[x][y] = zet
+    checked = [[False] * len(board[0])] * len(board)
+    if (y + int(1)) < len(board[0]) and board[x][y + int(1)] == old and checked[x][y + int(1)] is False:
+        board[x][y + int(1)] = zet
+        checked[x][y + int(1)] = True
+        board = check_move(board, zet, [x, y + int(1)], old)
+    if (x + int(1)) < len(board) and board[x + int(1)][y] == old and checked[x + 1][y] is False:
+        board[x + int(1)][y] = zet
+        checked[x + int(1)][y] = True
+        board = check_move(board, zet, [x + int(1), y], old)
+    if (y - int(1)) >= 0 and board[x][y - 1] == old and checked[x][y - int(1)] is False:
+        board[x][y - 1] = zet
+        checked[x][y - 1] = True
+        board = check_move(board, zet, [x, y - 1], old)
+    if (x - int(1)) >= 0 and board[x - 1][y] == old and checked[x - 1][y] is False:
+        board[x - 1][y] = zet
+        checked[x - 1][y] = True
+        board = check_move(board, zet, [x - int(1), y], old)
+    return board
+
+
+# The tests
+
+
+def test_is_over():
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) is True
     assert isover([["red", "red", "red"], ["red", "red", "red"], ["red", "blue", "red"]]) is False
     assert isover([]) is True
 
 
-def test_availablemoves():
-    assert availablemove([["red", "blue", "green"], ["yellow", "red", "red"], ["red", "red", "red"]]) == ["red", "blue",
-                                                                                                          "green",
-                                                                                                          "yellow"]
-    assert availablemove([["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) == ["red"]
-    assert availablemove([["blue", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]) == ["blue","red"]
-    assert availablemove([]) == []
+def test_available_moves():
+    board1 = [["red", "blue", "green"], ["yellow", "red", "red"], ["red", "red", "red"]]
+    assert availablemove(board1) == ["red", "blue", "green", "yellow"]
+    board2 = [["red", "red", "red"], ["red", "red", "red"], ["red", "red", "red"]]
+    assert availablemove(board2) == ["red"]
+    board2[0][0] = "blue"
+    assert availablemove(board2) == ["blue", "red"]
+    board2[3][2] = "yellow"
+    assert availablemove(board2) == ["blue", "red", "yellow"]
 
+
+def test_check_move():
+    board1 = [["blue", "red", "purple", "red", "yellow"], ["purple", "blue", "purple", "blue", "purple"],
+              ["red", "purple", "blue", "purple", "blue"], ["purple", "yellow", "blue", "blue", "yellow"],
+              ["purple", "green", "blue", "red", "green"]]
+    answer1 = [["blue", "red", "purple", "red", "yellow"], ["purple", "blue", "purple", "blue", "purple"],
+               ["red", "purple", "blue", "purple", "blue"], ["purple", "yellow", "blue", "blue", "yellow"],
+               ["purple", "green", "blue", "red", "green"]]
+    assert check_move(board1, "blue", [0, 0], "blue") == answer1
+    answer1[0][0] = "purple"
+    assert check_move(board1, "purple", [0, 0], "blue") == answer1
