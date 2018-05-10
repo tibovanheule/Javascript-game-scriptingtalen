@@ -32,27 +32,31 @@ def availablemove(board):
 def do_move(status, zet, plaats):
     try:
         board = status["board"][0]
-        score = int(status["score"]) + 1
-        if isover(board):
-            return json.dumps(
-                {"message": 'The game is over well played!', "score": score, "moves": [availablemove(board)],
-                 "board": [board]}, indent=4)
-        else:
-            x = int(plaats[0])
-            y = int(plaats[1])
-            old = board[x][y]
-            if x == 0 and y == 0:
+        x = int(plaats[0])
+        y = int(plaats[1])
+        old = board[x][y]
+        score = int(status["score"])
+        if x == 0 and y == 0:
+            if isover(board):
+                return json.dumps(
+                    {"message": 'The game is over well played! Completed in '+str(score)+' steps', "score": score, "moves": [availablemove(board)],
+                     "board": [board]}, indent=4)
+            else:
+                score = int(status["score"]) + 1
                 new_board = check_move(board, zet, plaats, old)
                 if isover(new_board):
                     return json.dumps(
-                        {"message": 'The game is over well played!', "score": score, "moves": [availablemove(board)],
+                        {"message": 'The game is over well played! Completed in '+str(score)+' steps', "score": score, "moves": [availablemove(board)],
                          "board": [board]}, indent=4)
                 else:
                     return json.dumps(
                         {"score": score, "moves": [availablemove(new_board)], "board": [new_board]},
                         indent=4)
-            return json.dumps({"score": score, "moves": [availablemove(board)], "board": [board]},
-                              indent=4)
+
+        else:
+            return json.dumps(
+                {"score": score, "moves": [availablemove(board)], "board": [board]},
+                indent=4)
     except Exception as e:
         print(e)
 
@@ -61,16 +65,23 @@ def check_move(board, zet, plaats, old):
     x = int(plaats[0])
     y = int(plaats[1])
     board[x][y] = zet
-    if (y + int(1)) < len(board[0]) and board[x][y + int(1)] == old:
+    checked = [[False] * len(board[0])] * len(board)
+    if (y + int(1)) < len(board[0]) and board[x][y + int(1)] == old and checked[x][y + int(1)] is False:
         board[x][y + int(1)] = zet
+        checked[x][y + int(1)] = True
         board = check_move(board, zet, [x, y + int(1)], old)
-    if (x + int(1)) < len(board) and board[x + int(1)][y] == old:
+    if (x + int(1)) < len(board) and board[x + int(1)][y] == old and checked[x + 1][y] is False:
         board[x + int(1)][y] = zet
+        checked[x + int(1)][y] = True
         board = check_move(board, zet, [x + int(1), y], old)
-    if (y - int(1)) >= 0 and board[x][y - 1] == old:
+    if (y - int(1)) >= 0 and board[x][y - 1] == old and checked[x][y - int(1)] is False:
         board[x][y - 1] = zet
-    if (x - int(1)) >= 0 and board[x - 1][y] == old:
+        checked[x][y - 1] = True
+        board = check_move(board, zet, [x, y - 1], old)
+    if (x - int(1)) >= 0 and board[x - 1][y] == old and checked[x - 1][y] is False:
         board[x - 1][y] = zet
+        checked[x - 1][y] = True
+        board = check_move(board, zet, [x - int(1), y], old)
     return board
 
 

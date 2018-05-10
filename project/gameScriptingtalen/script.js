@@ -36,8 +36,8 @@ function setboard(value) {
         $.each(value, function (index2, value) {
             $("#board").append("<div id='" + index + index2 + "' class='dot " + value + "' ></div>")
         });
-        $("#board").append("</br>")
-    })
+        $("#board").append("<br/>")
+    });
 }
 
 function setmoves(moves) {
@@ -57,6 +57,12 @@ $(document).on('click', '.dot', function () {
     update($("#moves").val(), [this.id.charAt(0), this.id.charAt(1)]);
 });
 
+$("#close").click(function () {
+
+    $("#myModal").css("display", "none");
+    newGame();
+});
+
 
 function update(zet, plaats) {
     $.ajax({
@@ -70,6 +76,7 @@ function update(zet, plaats) {
         },
         dataType: 'json',
         success: function (result) {
+
             board = result.board;
             score = result.score;
             message = result.message;
@@ -81,7 +88,14 @@ function update(zet, plaats) {
                 setmoves(value);
             });
             setScore(result.score);
+            if (result.hasOwnProperty('message')) {
+                $("#myModal").css("display", "block");
+                $("#message").html(result.message);
+            }
         }
     });
 }
+
+
+
 
