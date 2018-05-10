@@ -63,7 +63,7 @@ def test_available_moves():
     assert availablemove(board2) == ["red"]
     board2[0][0] = "blue"
     assert availablemove(board2) == ["blue", "red"]
-    board2[2][2] = "yellow"
+    board2[3][2] = "yellow"
     assert availablemove(board2) == ["blue", "red", "yellow"]
 
 

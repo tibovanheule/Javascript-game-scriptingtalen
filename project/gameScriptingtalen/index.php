@@ -5,8 +5,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/resources/favicon/apple-touch-icon.png"/>
     <link rel="icon" type="image/png" href="/resources/favicon/favicon-32x32.png" sizes="32x32"/>
     <link rel="icon" type="image/png" href="/resources/favicon/favicon-16x16.png" sizes="16x16"/>
+
+    <link rel="stylesheet" href="https://tibovanheule.space/newstyle.min.css" integrity="sha384-bR/ZFfqZWIuQQkSNOn3Q0W0Ui6ejQqPK3l/biTTqQgeGgI6Cu2aNUTmA+wsilw1b" crossorigin="anonymous">
+    <link rel="stylesheet" href="game.min.css" >
+    <!-- zonder SRI
     <link rel="stylesheet" type="text/css" href="/newstyle.min.css"/>
-    <link rel="stylesheet" type="text/css" href="game.min.css">
+    -->
     <meta name="theme-color" content="#ffffff"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description"
@@ -16,12 +20,13 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script type="application/javascript" async src="script.min.js"></script>
+    <script async src="script.min.js"></script>
+    <script async src="clicks.min.js"></script>
 </head>
 <body class="home">
 <div class="content">
     <div class="logo">
-        <img src="../resources/images/logo.png" alt="logo"/>
+        <img src="../resources/images/logo.png" alt="logo"/><br/>
     </div>
     <h1>GEKLEURDE DRUPPELS</h1>
     <div id="myModal" class="modal">
