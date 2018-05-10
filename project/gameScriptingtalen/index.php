@@ -43,7 +43,8 @@
         <p id="score">Loading ...</p>
     </div>
     <div id="board">
-
+        <!-- for slow connections since the script is loaded async (page will render before script execution) -->
+        <img class="loader" src="loader.gif"/>
     </div>
 
 
