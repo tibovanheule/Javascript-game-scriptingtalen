@@ -1,5 +1,6 @@
-var result = {};
-
+var board;
+var score;
+var message;
 
 $("#newgame").click(function () {
     newGame();
@@ -15,16 +16,17 @@ $("#newgame").click(function () {
 function newGame() {
     $.ajax({
         url: "/cgibin/gekleurde druppels.py", cache: false, dataType: 'json', success: function (result) {
-            console.log(result);
-            game = result;
-            console.log(result.board);
-            $("#board").html("");
+            board = result.board;
+            score = result.score;
+            message = result.message;
+            $("#board").empty();
             $.each(result.board, function (index, value) {
                 setboard(value);
             });
             $.each(result.moves, function (index, value) {
                 setmoves(value);
-            })
+            });
+            setScore(result.score)
         }
     });
 }
@@ -39,39 +41,46 @@ function setboard(value) {
 }
 
 function setmoves(moves) {
-    $("#moves").html("");
+    $("#moves").empty();
     $.each(moves, function (index, value) {
-        $("#moves").append("<option value='"+value+"'>"+value+"</option>");
+        $("#moves").append("<option value='" + value + "'>" + value + "</option>");
     });
+}
 
-
+function setScore(score) {
+    $("#score").html("aantal stappen: " + score)
 }
 
 newGame();
 
 $(document).on('click', '.dot', function () {
-    var zet = $("#moves").val();
-    console.log(zet);
-    update(game,zet, [this.id.charAt(0), this.id.charAt(1)]);
+    update($("#moves").val(), [this.id.charAt(0), this.id.charAt(1)]);
 });
 
 
-function update(board, zet, plaats) {
+function update(zet, plaats) {
     $.ajax({
         url: "/cgibin/doMove.py",
         cache: false,
         method: 'POST',
-        data: {'board': JSON.stringify(board.board), 'zet': JSON.stringify(zet), 'plaats': JSON.stringify(plaats)},
+        data: {
+            'status': JSON.stringify({'board': board, 'score': score}),
+            'zet': JSON.stringify(zet),
+            'plaats': JSON.stringify(plaats)
+        },
         dataType: 'json',
         success: function (result) {
-            game = result;
-            $("#board").html("");
+            board = result.board;
+            score = result.score;
+            message = result.message;
+            $("#board").empty();
             $.each(result.board, function (index, value) {
                 setboard(value);
             });
             $.each(result.moves, function (index, value) {
                 setmoves(value);
-            })
+            });
+            setScore(result.score);
         }
     });
 }

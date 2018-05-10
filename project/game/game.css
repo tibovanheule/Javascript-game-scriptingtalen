@@ -28,3 +28,15 @@
 .purple {
     background-color: purple
 }
+
+.controls{
+    margin: 2% auto 2% auto;
+    color: white;
+    text-align: center;
+}
+
+button, select{
+    background-color: transparent;
+    border: solid white 1px;
+    color:white;
+}

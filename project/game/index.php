@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="game.css"
     <meta name="theme-color" content="#ffffff"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Gekleurde druppels, an implementation of a game in python and javascript for the course scripting Languages Ugent.">
+    <meta name="description"
+          content="Gekleurde druppels, an implementation of a game in python and javascript for the course scripting Languages Ugent.">
     <title>Home</title>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -23,14 +24,16 @@
         <img src="../resources/images/logo.png" alt="logo"/>
     </div>
     <h1>GEKLEURDE DRUPPELS</h1>
-    <button id="newgame" >New Game</button>
-    <select id="moves">
-    </select>
-    <p id="score"></p>
+    <div class="controls">
+        <button id="newgame">New Game</button>
+        <label for="moves">kleuren: </label>
+        <select id="moves">
+        </select>
+        <p id="score"></p>
+    </div>
     <div id="board">
 
     </div>
-
 
 
     <div class="footer">

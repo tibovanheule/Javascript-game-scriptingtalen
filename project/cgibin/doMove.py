@@ -5,7 +5,7 @@ import json
 
 print("Content-type: application/json\n\n")
 parameters = cgi.FieldStorage()
-board1 = json.loads(parameters.getvalue("board"))
+board1 = json.loads(parameters.getvalue("status"))
 zet1 = json.loads(parameters.getvalue("zet"))
 plaats1 = json.loads(parameters.getvalue("plaats"))
 
@@ -29,28 +29,30 @@ def availablemove(board):
     return moves
 
 
-def do_move(board, zet, plaats):
+def do_move(status, zet, plaats):
     try:
+        board = status["board"][0]
+        score = int(status["score"]) + 1
         if isover(board):
-            return json.dumps({"message": 'The game is over well played!', "score": 0, "moves": [availablemove(board)],
-                               "board": [board]}, indent=4)
+            return json.dumps(
+                {"message": 'The game is over well played!', "score": score, "moves": [availablemove(board)],
+                 "board": [board]}, indent=4)
         else:
             x = int(plaats[0])
             y = int(plaats[1])
             old = board[x][y]
             if x == 0 and y == 0:
-
                 new_board = check_move(board, zet, plaats, old)
                 if isover(new_board):
                     return json.dumps(
-                        {"message": 'The game is over well played!', "score": 0, "moves": [availablemove(board)],
+                        {"message": 'The game is over well played!', "score": score, "moves": [availablemove(board)],
                          "board": [board]}, indent=4)
                 else:
                     return json.dumps(
-                        {"message": '', "score": '1', "moves": [availablemove(new_board)], "board": [new_board]},
+                        {"score": score, "moves": [availablemove(new_board)], "board": [new_board]},
                         indent=4)
-            return json.dumps({"message": '', "score": 0, "moves": [availablemove(board)], "board": [board]}, indent=4)
-
+            return json.dumps({"score": score, "moves": [availablemove(board)], "board": [board]},
+                              indent=4)
     except Exception as e:
         print(e)
 
@@ -72,4 +74,4 @@ def check_move(board, zet, plaats, old):
     return board
 
 
-print(do_move(board1[0], zet1, plaats1))
+print(do_move(board1, zet1, plaats1))

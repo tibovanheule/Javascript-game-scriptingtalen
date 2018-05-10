@@ -43,7 +43,7 @@ def new_game(size=5):
                 moves.append(colors[rand])
         board.append(row)
 
-    return json.dumps({"message": '', "score": "0", "moves": [moves], "board": [board]}, indent=4)
+    return json.dumps({"score": "0", "moves": [moves], "board": [board]}, indent=4)
 
 
 print(new_game())
