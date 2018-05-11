@@ -3,6 +3,5 @@ python:
   - "3.5"
 before_install:
   - cd project/cgibin
-  - ls
 script:
   - pytest test.py
