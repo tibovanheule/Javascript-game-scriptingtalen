@@ -8,6 +8,7 @@ class Game {
 
     // hulp methode
     setboard(value) {
+        $("#board").empty();
         $.each(value, function (index, value) {
             $.each(value, function (index2, value) {
                 $("#board").append("<div id='" + index + index2 + "' class='dot " + value + "' ></div>")
@@ -39,12 +40,16 @@ class Game {
                 'plaats': JSON.stringify(plaats)
             },
             dataType: 'json',
+            error: function () {
+                if ($("#board p").length === 0) {
+                    $("#board").append("<br><p>An error occured, couldn't update the board.</p>")
+                }
+            },
             success: function (result) {
 
                 self.board = result.board;
                 self.score = result.score;
                 self.message = result.message;
-                $("#board").empty();
                 $.each(result.board, function (index, value) {
                     self.setboard(value);
                 });
@@ -62,22 +67,29 @@ class Game {
 
     newGame() {
         let self = this;
-        $.ajax({
-            url: "/cgibin/gekleurde druppels.py", cache: false, dataType: 'json', success: function (result) {
-                self.board = result.board;
-                self.score = result.score;
-                self.message = result.message;
-
-                $("#board").empty();
-                $.each(result.board, function (index, value) {
-                    self.setboard(value);
-                });
-                $.each(result.moves, function (index, value) {
-                    self.setmoves(value);
-                });
-                self.setScore(result.score)
-            }
-        });
+        $("#board").fadeOut(400, function () {
+            $.ajax({
+                url: "/cgibin/gekleurde druppels.py",
+                cache: false,
+                dataType: 'json',
+                error: function () {
+                    $("#board").html("<p>An error occured, couldn't start a new game</p>").fadeIn(400)
+                },
+                success: function (result) {
+                    self.board = result.board;
+                    self.score = result.score;
+                    self.message = result.message;
+                    $.each(result.board, function (index, value) {
+                        self.setboard(value);
+                    });
+                    $.each(result.moves, function (index, value) {
+                        self.setmoves(value);
+                    });
+                    self.setScore(result.score);
+                    $("#board").fadeIn(400)
+                }
+            });
+        })
     }
 
 }

@@ -21,3 +21,4 @@ $("#close").click(function () {
 });
 
 game.newGame();
+

@@ -36,17 +36,19 @@ def do_move(status, zet, plaats):
         y = int(plaats[1])
         old = board[x][y]
         score = int(status["score"])
-        if x == 0 and y == 0:
+        if x == 0 and y == 0 and old != zet:
             if isover(board):
                 return json.dumps(
-                    {"message": 'The game is over well played! Completed in '+str(score)+' steps', "score": score, "moves": [availablemove(board)],
+                    {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen', "score": score,
+                     "moves": [availablemove(board)],
                      "board": [board]}, indent=4)
             else:
                 score = int(status["score"]) + 1
                 new_board = check_move(board, zet, plaats, old)
                 if isover(new_board):
                     return json.dumps(
-                        {"message": 'The game is over well played! Completed in '+str(score)+' steps', "score": score, "moves": [availablemove(board)],
+                        {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen',
+                         "score": score, "moves": [availablemove(board)],
                          "board": [board]}, indent=4)
                 else:
                     return json.dumps(
@@ -67,19 +69,15 @@ def check_move(board, zet, plaats, old):
     board[x][y] = zet
     checked = [[False] * len(board[0])] * len(board)
     if (y + int(1)) < len(board[0]) and board[x][y + int(1)] == old and checked[x][y + int(1)] is False:
-        board[x][y + int(1)] = zet
         checked[x][y + int(1)] = True
         board = check_move(board, zet, [x, y + int(1)], old)
     if (x + int(1)) < len(board) and board[x + int(1)][y] == old and checked[x + 1][y] is False:
-        board[x + int(1)][y] = zet
         checked[x + int(1)][y] = True
         board = check_move(board, zet, [x + int(1), y], old)
     if (y - int(1)) >= 0 and board[x][y - 1] == old and checked[x][y - int(1)] is False:
-        board[x][y - 1] = zet
         checked[x][y - 1] = True
         board = check_move(board, zet, [x, y - 1], old)
     if (x - int(1)) >= 0 and board[x - 1][y] == old and checked[x - 1][y] is False:
-        board[x - 1][y] = zet
         checked[x - 1][y] = True
         board = check_move(board, zet, [x - int(1), y], old)
     return board
