@@ -95,9 +95,14 @@ def test_check_move():
                ["blue", "yellow", "blue", "blue", "yellow"],
                ["blue", "green", "green", "blue", "blue"]]
     assert check_move(board3, "blue", ["0", "0"], "purple") == answer3
+    board4 = [["purple", "purple", "blue", "purple", "purple"],
+              ["purple", "purple", "purple", "purple", "purple"],
+              ["purple", "purple", "purple", "purple", "purple"],
+              ["purple", "yellow", "purple", "purple", "yellow"],
+              ["blue", "green", "green", "purple", "purple"]]
     answer4 = [["yellow", "yellow", "blue", "yellow", "yellow"],
               ["yellow", "yellow", "yellow", "yellow", "yellow"],
               ["yellow", "yellow", "yellow", "yellow", "yellow"],
               ["yellow", "yellow", "yellow", "yellow", "yellow"],
               ["blue", "green", "green", "yellow", "yellow"]]
-    assert check_move(board3, "yellow", ["0", "0"], "purple") == answer4
+    assert check_move(board4, "yellow", ["0", "0"], "purple") == answer4
