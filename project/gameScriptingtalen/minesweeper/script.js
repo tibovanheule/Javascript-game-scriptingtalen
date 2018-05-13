@@ -11,7 +11,7 @@ class Game {
         $("#board").empty();
         $.each(value, function (index, value) {
             $.each(value, function (index2, value) {
-                $("#board").append("<div id='" + index + index2 + "' class='dot " + value + "' ></div>")
+                $("#board").append("<div id='" + index + index2 + "' class='board-element " + value + "' ></div>")
             });
             $("#board").append("<br/>")
         });
@@ -25,13 +25,13 @@ class Game {
     }
 
     setScore(score) {
-        $("#score").html("aantal stappen: " + score)
+        $("#score").html("aantal gevonden mijnen: " + score)
     }
 
     update(zet, plaats) {
         let self = this;
         $.ajax({
-            url: "/cgibin/doMove.py",
+            url: "/cgibin/minesweeperDoMove.py",
             cache: false,
             method: 'POST',
             data: {
@@ -69,7 +69,7 @@ class Game {
         let self = this;
         $("#board").fadeOut(400, function () {
             $.ajax({
-                url: "/cgibin/gekleurde druppels.py",
+                url: "/cgibin/minesweeper.py",
                 cache: false,
                 dataType: 'json',
                 error: function () {

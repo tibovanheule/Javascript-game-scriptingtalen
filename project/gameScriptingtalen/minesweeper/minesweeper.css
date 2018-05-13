@@ -1,6 +1,6 @@
-.dot {
-    height: 5vw;
-    width: 5vw;
+.board-element {
+    height: 3vw;
+    width: 3vw;
     border-radius: 50%;
     display: inline-block;
 }
@@ -10,24 +10,33 @@
     height: 25vw;
 }
 
-.red {
+.uncovered, .mine-uncovered, .uncovered-1, .uncovered-2, .uncovered-3, .uncovered-4 {
+    background-color: gray;
+}
+
+.mine-discovered {
     background-color: red;
 }
 
-.green {
-    background-color: green;
+.discovered{
+    background-color: lightgray;
 }
 
-.blue {
-    background-color: blue
+.discovered-1{
+    background: lightgray url("1.png") no-repeat;
+    background-size: contain;
 }
-
-.yellow {
-    background-color: yellow
+.discovered-2{
+    background: lightgray url("2.png") no-repeat;
+    background-size: contain;
 }
-
-.purple {
-    background-color: purple
+.discovered-3{
+    background: lightgray url("3.png") no-repeat;
+    background-size: contain;
+}
+.discovered-4{
+    background: lightgray url("4.png") no-repeat;
+    background-size: contain;
 }
 
 .controls {
@@ -66,13 +75,14 @@ select option {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-.loader{
+
+.loader {
     width: 5vw;
     height: auto;
-    margin-top:5vw;
+    margin-top: 5vw;
 }
 
-.footer{
+.footer {
     position: fixed;
     bottom: 0;
     width: 100%;

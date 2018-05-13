@@ -68,18 +68,18 @@ def check_move(board, zet, plaats, old):
     y = int(plaats[1])
     board[x][y] = zet
     checked = [[False] * len(board[0])] * len(board)
+    if (y - int(1)) >= 0 and board[x][y - 1] == old and checked[x][y - int(1)] is False:
+        checked[x][y - 1] = True
+        board = check_move(board, zet, [x, y - 1], old)
+    if (x - int(1)) >= 0 and board[x - 1][y] == old and checked[x - 1][y] is False:
+        checked[x - 1][y] = True
+        board = check_move(board, zet, [x - 1, y], old)
     if (y + int(1)) < len(board[0]) and board[x][y + int(1)] == old and checked[x][y + int(1)] is False:
         checked[x][y + int(1)] = True
         board = check_move(board, zet, [x, y + int(1)], old)
     if (x + int(1)) < len(board) and board[x + int(1)][y] == old and checked[x + 1][y] is False:
         checked[x + int(1)][y] = True
         board = check_move(board, zet, [x + int(1), y], old)
-    if (y - int(1)) >= 0 and board[x][y - 1] == old and checked[x][y - int(1)] is False:
-        checked[x][y - 1] = True
-        board = check_move(board, zet, [x, y - 1], old)
-    if (x - int(1)) >= 0 and board[x - 1][y] == old and checked[x - 1][y] is False:
-        checked[x - 1][y] = True
-        board = check_move(board, zet, [x - int(1), y], old)
     return board
 
 
