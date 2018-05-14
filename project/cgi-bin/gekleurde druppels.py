@@ -48,11 +48,12 @@ def new_game(size=5):
 def do_move(status, zet, plaats):
     try:
         board = status["board"][0]
-        x = int(plaats[0])
-        y = int(plaats[1])
+        plaats = [0, 0]
+        x = 0
+        y = 0
         old = board[x][y]
         score = int(status["score"])
-        if x == 0 and y == 0 and old != zet:
+        if old != zet:
             if isover(board):
                 return json.dumps(
                     {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen', "score": score,

@@ -8,12 +8,13 @@
 I have used my own server to test out the sricpts.
 The server has a content security policy in place, so the code a written with that restriction in mind.
 
-first there is a jquery class that handles all communication to the python scripts.
-I use a second script to handle all clicks and to update the board.
-that script can be placed inline if you run it on a server without csp(otherwise it will block it)
+There is a jquery class (script.js) that handles all communication to the python scripts.
+I use a second script to handle all clicks and to update the board. (clicks.js )
+that script can be placed inline if you run it on a server without csp (otherwise it will block it)
 
-for the same reason, I color the dots with a class defined in a css file and not
-with an inline style="background-color:white;"
+## local sever 
+
+we recommend to run just scripts in projects. 
 
 ## file structure
 
@@ -27,6 +28,7 @@ with an inline style="background-color:white;"
 
 - cgibin (python scripts)
 - gameScriptingtalen (html and js files)
+- index.html (main index file (menu))
 
 ### cgibin
 
@@ -36,6 +38,10 @@ with an inline style="background-color:white;"
 
 ### gameScriptingtalen
 
+- druppels
+- minesweeper
+
+### minesweeper or druppels (files the same with some minors changes (just the text) )
 - clicks.js  (contains the onclick functions to start the correct method in script.js)
 - clicks.min.js (minified version)
 - game.css (css for the dots ,controls and popup)
