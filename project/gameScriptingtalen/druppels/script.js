@@ -31,7 +31,7 @@ class Game {
     update(zet, plaats) {
         let self = this;
         $.ajax({
-            url: "/cgibin/doMove.py",
+            url: "/cgi-bin/gekleurde druppels.py",
             cache: false,
             method: 'POST',
             data: {
@@ -69,7 +69,7 @@ class Game {
         let self = this;
         $("#board").fadeOut(400, function () {
             $.ajax({
-                url: "/cgibin/gekleurde druppels.py",
+                url: "/cgi-bin/gekleurde druppels.py",
                 cache: false,
                 dataType: 'json',
                 error: function () {
@@ -91,7 +91,6 @@ class Game {
             });
         })
     }
-
 }
 
 

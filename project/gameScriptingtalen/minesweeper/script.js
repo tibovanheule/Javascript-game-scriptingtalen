@@ -31,7 +31,7 @@ class Game {
     update(zet, plaats) {
         let self = this;
         $.ajax({
-            url: "/cgibin/minesweeperDoMove.py",
+            url: "/cgi-bin/minesweeper.py",
             cache: false,
             method: 'POST',
             data: {
@@ -69,7 +69,7 @@ class Game {
         let self = this;
         $("#board").fadeOut(400, function () {
             $.ajax({
-                url: "/cgibin/minesweeper.py",
+                url: "/cgi-bin/minesweeper.py",
                 cache: false,
                 dataType: 'json',
                 error: function () {
