@@ -23,10 +23,8 @@ def isover(board):
 def availablemove(board):
     moves = []
     for i in board:
-        for j in i:
-            if j not in moves:
-                moves.append(j)
-    return moves
+        moves += i
+    return list(set(moves))
 
 
 def new_game(size=5):
@@ -46,38 +44,32 @@ def new_game(size=5):
 
 
 def do_move(status, zet, plaats):
-    try:
-        board = status["board"][0]
-        plaats = [0, 0]
-        x = 0
-        y = 0
-        old = board[x][y]
-        score = int(status["score"])
-        if old != zet:
-            if isover(board):
+    board = status["board"][0]
+    old = board[0][0]
+    score = int(status["score"])
+    if old != zet:
+        if isover(board):
+            return json.dumps(
+                {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen', "score": score,
+                 "moves": [availablemove(board)],
+                 "board": [board]}, indent=4)
+        else:
+            score = int(status["score"]) + 1
+            new_board = check_move(board, zet, [0, 0], old)
+            if isover(new_board):
                 return json.dumps(
-                    {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen', "score": score,
-                     "moves": [availablemove(board)],
+                    {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen',
+                     "score": score, "moves": [availablemove(board)],
                      "board": [board]}, indent=4)
             else:
-                score = int(status["score"]) + 1
-                new_board = check_move(board, zet, plaats, old)
-                if isover(new_board):
-                    return json.dumps(
-                        {"message": 'Spel is over, goed gespeeld! voltooid in ' + str(score) + ' stappen',
-                         "score": score, "moves": [availablemove(board)],
-                         "board": [board]}, indent=4)
-                else:
-                    return json.dumps(
-                        {"score": score, "moves": [availablemove(new_board)], "board": [new_board]},
-                        indent=4)
+                return json.dumps(
+                    {"score": score, "moves": [availablemove(new_board)], "board": [new_board]},
+                    indent=4)
 
-        else:
-            return json.dumps(
-                {"score": score, "moves": [availablemove(board)], "board": [board]},
-                indent=4)
-    except Exception as e:
-        print(e)
+    else:
+        return json.dumps(
+            {"score": score, "moves": [availablemove(board)], "board": [board]},
+            indent=4)
 
 
 def check_move(board, zet, plaats, old):
@@ -104,8 +96,7 @@ if os.environ['REQUEST_METHOD'] == 'POST':
     parameters = cgi.FieldStorage()
     board1 = json.loads(parameters.getvalue("status"))
     zet1 = json.loads(parameters.getvalue("zet"))
-    plaats1 = json.loads(parameters.getvalue("plaats"))
-    print(do_move(board1, zet1, plaats1))
+    print(do_move(board1, zet1, [0, 0]))
 
 if os.environ['REQUEST_METHOD'] == 'GET':
     print(new_game())
