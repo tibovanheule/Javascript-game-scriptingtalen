@@ -11,7 +11,7 @@ class Game {
         $("#board").empty();
         $.each(value, function (index, value) {
             $.each(value, function (index2, value) {
-                $("#board").append("<div id='" + index + index2 + "' class='board-element " + value + "' ></div>")
+                $("#board").append("<div data-x='"+index+"' data-y='"+index2+"' class='board-element " + value + "' ></div>")
             });
             $("#board").append("<br/>")
         });

@@ -23,8 +23,10 @@ def isover(board):
 def availablemove(board):
     moves = []
     for i in board:
-        moves += i
-    return list(set(moves))
+        for j in i:
+            if j not in moves:
+                moves.append(j)
+    return moves
 
 
 def new_game(size=5):

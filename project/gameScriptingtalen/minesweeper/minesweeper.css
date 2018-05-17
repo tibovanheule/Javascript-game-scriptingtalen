@@ -1,6 +1,6 @@
 .board-element {
-    height: 5vw;
-    width: 5vw;
+    height: 3vw;
+    width: 3vw;
     border-radius: 50%;
     display: inline-block;
 }

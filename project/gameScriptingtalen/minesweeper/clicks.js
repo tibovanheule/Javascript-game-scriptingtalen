@@ -11,7 +11,7 @@ $("#newgame").click(function () {
 });
 
 $(document).on('click', '.board-element', function () {
-    game.update($("#moves").val(), [this.id.charAt(0), this.id.charAt(1)]);
+    game.update($("#moves").val(), [$(this).data("x"), $(this).data("y")]);
 });
 
 $("#close").click(function () {
